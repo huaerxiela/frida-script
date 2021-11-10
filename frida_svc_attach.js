@@ -27,6 +27,8 @@ if (arch){
             return;
         }
         let baseAddress = Module.getBaseAddress(path);
+        let soNameList = path.split("/");
+        let soName = soNameList[soNameList.length - 1];
         console.log("\npath = " + path + " , baseAddress = " + baseAddress + " , rangeAddress = " + range.base + " , size = " + range.size);
 
         Memory.scan(range.base, range.size, target_code_hex, {
@@ -44,7 +46,7 @@ if (arch){
                     }else {
                         console.log("the arch get call_number not support!")
                     }
-                    console.log("find svc : address = " + code_address + " , call_number = " + call_number + " , offset = " + code_address.sub(baseAddress));
+                    console.log("find svc : so_name = " + soName + " , address = " + code_address + " , call_number = " + call_number + " , offset = " + code_address.sub(baseAddress));
 
                     // hook svc __NR_openat
                     if (call_number_openat === call_number){
